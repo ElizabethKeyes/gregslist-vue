@@ -5,6 +5,12 @@
         <HouseCard :House="h" />
       </div>
     </section>
+    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-light rounded-pill create-button"><i
+        class="mdi mdi-plus"></i> Create
+      Listing</button>
+    <ModalComponent>
+      <HouseForm />
+    </ModalComponent>
   </div>
 </template>
 
@@ -16,6 +22,9 @@ import Pop from "../utils/Pop.js";
 import { housesService } from "../services/HousesService.js"
 import { AppState } from '../AppState.js'
 import HouseCard from "../components/HouseCard.vue";
+import ModalComponent from "../components/ModalComponent.vue";
+import HouseForm from "../components/HouseForm.vue";
+
 
 export default {
   setup() {
@@ -32,12 +41,20 @@ export default {
       getHouses();
     });
     return {
-      houses: computed(() => AppState.houses)
+      houses: computed(() => AppState.houses),
+
     };
   },
-  components: { HouseCard }
+  components: { HouseCard, ModalComponent, HouseForm }
 }
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.create-button {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  border: black solid 1px
+}
+</style>

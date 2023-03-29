@@ -1,3 +1,5 @@
+import { Profile } from "./Account.js"
+
 export class House {
   constructor(data) {
     this.id = data.id
@@ -8,7 +10,7 @@ export class House {
     this.imgUrl = data.imgUrl
     this.levels = data.levels
     this.price = data.price
-    this.seller = data.seller
+    this.seller = new Profile(data.seller)
     this.year = data.year
     this.createdAt = new Date(data.createdAt)
   }
