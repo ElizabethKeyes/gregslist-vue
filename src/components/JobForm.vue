@@ -10,7 +10,7 @@
     </div>
     <div class="col-6 mb-2">
       <label for="jobTitle">Job Title</label>
-      <input type="number" required class="form-control" v-model="editable.jobTitle">
+      <input type="text" required class="form-control" v-model="editable.jobTitle">
     </div>
     <div class="col-6 mb-2">
       <label for="rate">Hourly Rate</label>
@@ -22,7 +22,7 @@
     </div>
     <div class="col-12 mb-2">
       <label for="description">Description</label>
-      <input type="number" required class="form-control" v-model="editable.description">
+      <input type="text" required class="form-control" v-model="editable.description">
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -37,12 +37,25 @@
 
 <script>
 import { ref } from "vue";
+import { jobsService } from "../services/JobsService.js";
+import { logger } from "../utils/Logger.js";
+import Pop from "../utils/Pop.js";
 
 export default {
   setup() {
     const editable = ref({})
     return {
-      editable
+      editable,
+
+      async createJob() {
+        try {
+          const jobData = editable.value
+          await jobsService.createJob(jobData)
+        } catch (error) {
+          logger.log(error)
+          Pop.error(error.message)
+        }
+      }
     }
   }
 }
