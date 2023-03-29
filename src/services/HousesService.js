@@ -12,8 +12,15 @@ class HousesService {
 
   async createHouse(houseData) {
     const res = await api.post('auth/api/houses', houseData)
-    AppState.houses.unshift(new House(res.data))
+    AppState.houses.push(new House(res.data))
+  }
+
+  async getHouseById(houseId) {
+    AppState.house = null
+    const res = await api.get(`auth/api/houses/${houseId}`)
+    AppState.house = new House(res.data)
   }
 }
+
 
 export const housesService = new HousesService()
